@@ -21,7 +21,7 @@ package("amplitudeaudiosdk")
 
   add_configs("shared", { description = "Build shared library.", default = true, type = "boolean" })
 
-  add_versions("1.0.0", "feat/xmake")
+  add_versions("1.0.0", "fix/release-stabilization")
 
   on_install(function(package)
     import("xmake.cpu", { rootdir = path.join(package:cachedir(), "source", "amplitudeaudiosdk") })
@@ -38,6 +38,12 @@ package("amplitudeaudiosdk")
     end
 
     platform.am_apply_detected_platform_defines(package)
+
+    if package:config("shared") then
+      package:add("defines", "AM_BUILDSYSTEM_SHARED")
+    else
+      package:add("defines", "AM_BUILDSYSTEM_STATIC")
+    end
 
     import("package.tools.xmake").install(package,
       { kind = package:config("shared") and "shared" or "static", as_package = true })
