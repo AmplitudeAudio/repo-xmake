@@ -21,7 +21,7 @@ package("amplitudeaudiosdk")
 
   add_configs("shared", { description = "Build shared library.", default = true, type = "boolean" })
 
-  add_versions("1.0.0", "fix/release-stabilization")
+  add_versions("1.0.0", "develop")
 
   on_install(function(package)
     import("xmake.cpu", { rootdir = path.join(package:cachedir(), "source", "amplitudeaudiosdk") })
